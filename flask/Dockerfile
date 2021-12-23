@@ -10,12 +10,12 @@ RUN apk add curl
 RUN adduser -D nonroot
 RUN mkdir /home/app/ && chown -R nonroot:nonroot /home/app
 RUN mkdir -p /var/log/flask-app && touch /var/log/flask-app/flask-app.err.log && touch /var/log/flask-app/flask-app.out.log
-RUN chown -R nonroot:nonroot /var/log/flask-app
+RUN chmod -R 755 /var/log/flask-app
 WORKDIR /home/app
 USER nonroot
 
 # copy all the files to the container
-COPY --chown=nonroot:nonroot . .
+COPY . .
 
 # venv
 ENV VIRTUAL_ENV=/home/app/venv
